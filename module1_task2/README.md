@@ -29,13 +29,13 @@ $ make build
 
 ```
 
-- clear: Remove the directory of the result code of Hugo website
+- clean: Remove the directory of the result code of Hugo website
 
 Usage:
 
 ```
 
-$ make clear
+$ make clean
 
 ```
 
