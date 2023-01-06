@@ -1,6 +1,6 @@
 ## Awesome Inc.
 
-### Prerequesites
+### Prerequisites
 
 - Go Hugo v0.80+
 - Git version 2+
