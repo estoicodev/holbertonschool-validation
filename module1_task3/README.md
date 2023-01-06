@@ -1,16 +1,50 @@
-# My Hugo Website with makefiles and documentation
+## Awesome Inc.
 
-## Prerequisites
+### Prerequisites
 
-## Lifecycle
+- Go Hugo v0.80+
+- Git version 2+
+- GNU Make version 3.81+
+- The website is expected to be generated into ./dist folder when you run `make build`
 
-### Step 1:
+### Lifecycle
 
-### Step 2:
+- post: Create a new post in Markdown to content/posts using POST_NAME and POST_TITLE environment variables for filename and title respectively
 
-## Commands
+Usage:
 
-- `make build`: Create the Hugo website using Hugo
-- `make clean`: Remove the directory of the result code of Hugo website
-- `make post`: Create a new post in Markdown to content/posts using POST_NAME and POST_TITLE environment variables for filename and title respectively
-- `make help`: Show the help usage
+```
+
+$ make post
+
+```
+
+- build: Create the Hugo website using Hugo
+
+Usage:
+
+```
+
+$ make build
+
+```
+
+- clean: Remove the directory of the result code of Hugo website
+
+Usage:
+
+```
+
+$ make clean
+
+```
+
+- help: Show more details of each rule
+
+Usage:
+
+```
+
+$ make help
+
+```
