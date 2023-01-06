@@ -16,8 +16,4 @@ post: ## Create a new post in Markdown to content/posts using POST_NAME and POST
 	@sed -i '2i $(NEW_LINE)' content/posts/$(POST_NAME).md
 
 help: ## Show help option to more details of each rule
-#	@echo "build: Create the Hugo website using Hugo"
-#	@echo "clean: Remove the directory of the result code of Hugo website"
-#	@echo "post: Create a new post in Markdown to content/posts using POST_NAME and POST_TITLE environment variables for filename and title respectively"
-#	@echo "help: Show help option to more details of each rule"
 	@cat Makefile | grep "^\w*:.*##.*" | sed 's/## //'
