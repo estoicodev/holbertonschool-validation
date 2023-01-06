@@ -1,1 +1,1 @@
-## My Hugo Website with makefiles
+## My Hugo Website
