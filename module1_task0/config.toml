@@ -1,15 +1,9 @@
 title = "Awesome Inc."
 baseURL = "https://example.org"
 languageCode = "en-us"
-theme = ["github.com/theNewDynamic/gohugo-theme-ananke"]
-publishDir = 'dist'
+theme = "ananke"
+publishDir = './dist'
 
-DefaultContentLanguage = "en"
-SectionPagesMenu = "main"
-Paginate = 3 # this is set low for demonstrating with dummy content. Set to a higher number
-googleAnalytics = ""
-enableRobotsTXT = true
-    
 [[params.ananke_socials]]
 name = "twitter"
 url = "https://twitter.com/mauricodev"
