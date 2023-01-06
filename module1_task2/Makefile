@@ -5,7 +5,7 @@ build: ## Create the Hugo website using Hugo
 	@mkdir -p $(DIST_DIR)
 	@hugo
 
-clean: ## Remove all the directory of the result code of Hugo website
+clean: ## Remove the directory of the result code of Hugo website
 	@rm -rf $(DIST_DIR)
 
 NEW_LINE = title: \"$(POST_TITLE)\"
