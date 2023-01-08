@@ -14,12 +14,16 @@ jobs:
         run: make --version >/dev/null 2>&1 && echo OK
       - name: Setup tools
         run: ./setup.sh
+        working-directory: module3_task1
       - name: Check target post in makefile
         run: make POST_NAME=test-post POST_TITLE="Test Post" post
+        working-directory: module3_task1
       - name: Check target build in makefile
         run: make build
+        working-directory: module3_task1
       - name: Check target clean in makefile
         run: make clean
+        working-directory: module3_task1
       - name: Check target help in makefile
         run: make help
         working-directory: module3_task1
