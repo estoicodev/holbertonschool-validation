@@ -1,0 +1,25 @@
+name: module3_task1
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 23 * * *"
+jobs:
+  All-Validation-Code:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Checkout tools
+        run: make --version >/dev/null 2>&1 && echo OK
+      - name: Setup tools
+        run: ./setup.sh
+      - name: Check target post in makefile
+        run: make POST_NAME=test-post POST_TITLE="Test Post" post
+      - name: Check target build in makefile
+        run: make build
+      - name: Check target clean in makefile
+        run: make clean
+      - name: Check target help in makefile
+        run: make help
+        working-directory: module3_task1
