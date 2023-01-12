@@ -1,0 +1,47 @@
+name: module3_task2
+on:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    - cron: "0 23 * * *"
+jobs:
+  All-Validation-Code:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Checkout tools
+        run: make --version >/dev/null 2>&1 && echo OK
+      - name: Setup tools
+        run: sudo ./setup.sh
+        working-directory: module3_task2
+      - name: Check target post in makefile
+        run: make POST_NAME=test-post POST_TITLE="Test Post" post
+        working-directory: module3_task2
+      - name: Check target build in makefile
+        run: make build
+        working-directory: module3_task2
+      - name: Check target clean in makefile
+        run: make clean
+        working-directory: module3_task2
+      - name: Check target help in makefile
+        run: make help
+        working-directory: module3_task2
+      - name: Create hugo application for package
+        run: make build
+        working-directory: module3_task2
+      - name: target package in makefile
+        run: make package
+        working-directory: module3_task2
+      - uses: actions/upload-artifact@v3
+        with:
+          path: awesome-website.zip
+          working-directory: module3_task2
+          if-no-files-found: error
+
+      - uses: actions/download-artifact@v3
+        with:
+          path: awesome-website.zip
+          working-directory: module3_task2
+          if-no-files-found: error
