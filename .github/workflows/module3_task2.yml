@@ -42,4 +42,3 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           path: module3_task2/awesome-website.zip
-          if-no-files-found: error
