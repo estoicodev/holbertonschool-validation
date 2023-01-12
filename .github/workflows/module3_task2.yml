@@ -36,12 +36,10 @@ jobs:
         working-directory: module3_task2
       - uses: actions/upload-artifact@v3
         with:
-          path: awesome-website.zip
-          working-directory: module3_task2
+          path: module3_task2/awesome-website.zip
           if-no-files-found: error
 
       - uses: actions/download-artifact@v3
         with:
-          path: awesome-website.zip
-          working-directory: module3_task2
+          path: module3_task2/awesome-website.zip
           if-no-files-found: error
