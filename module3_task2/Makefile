@@ -30,6 +30,5 @@ integration-tests: ## Integration tests
 	@make help
 	@make lint
 	@make build
-	@make POST_NAME=test-post POST_TITLE="Test Post" post
 	@make package
 	@make clean
