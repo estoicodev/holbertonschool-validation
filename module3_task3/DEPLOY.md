@@ -39,7 +39,7 @@ Check it out on your localhost.
 
 ### 1.0.0
 
-- Using tag `1.0.0`
+- Using tag name `1.0.0`
 
 Assets:
 
