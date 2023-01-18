@@ -39,4 +39,9 @@ Check it out on your localhost.
 
 ### 1.0.0
 
-- Tag `1.0.0`
+- Using tag `1.0.0`
+
+Assets:
+
+- `awesome-website.zip`
+- `DEPLOY.md`
