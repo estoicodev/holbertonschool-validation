@@ -34,7 +34,7 @@ jobs:
           make unit-tests
           make package
         working-directory: module3_task3
-      - name: Release
+      - name: Release 1.0.0
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
