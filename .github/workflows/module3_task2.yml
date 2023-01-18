@@ -13,34 +13,26 @@ jobs:
       - uses: actions/checkout@v3
       - name: Checkout tools
         run: make --version >/dev/null 2>&1 && echo OK
+        working-directory: module3_task2
       - name: Setup tools
         run: sudo ./setup.sh
         working-directory: module3_task2
-      - name: Check target post in makefile
-        run: make POST_NAME=test-post POST_TITLE="Test Post" post
+      - name: Check target lint in makefile
+        run: make lint
         working-directory: module3_task2
       - name: Check target build in makefile
         run: make build
         working-directory: module3_task2
-      - name: Check target clean in makefile
-        run: make clean
+      - name: Check target post in makefile
+        run: make POST_NAME=test-post POST_TITLE="Test Post" post
         working-directory: module3_task2
-      - name: Check target help in makefile
-        run: make help
+      - name: Check Integration tests
+        run: make integration-tests
         working-directory: module3_task2
-      - name: Create hugo application for package
-        run: make build
-        working-directory: module3_task2
-      - name: target package in makefile
-        run: make package
-        working-directory: module3_task2
-      - uses: actions/upload-artifact@v3
+      - name: Upload zip file
+        if: ${{ success()}}
+        uses: actions/upload-artifact@v3
         with:
-          name: awesome-website.zip
+          name: upload-package
           path: module3_task2/awesome-website.zip
           if-no-files-found: error
-
-      - uses: actions/download-artifact@v3
-        with:
-          name: awesome-website.zip
-          path: module3_task2/awesome-website.zip

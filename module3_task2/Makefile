@@ -19,7 +19,17 @@ help: ## Show help option to more details of each rule
 	@cat Makefile | grep "^\w*:.*##.*" | sed 's/## //'
 
 package: ## Create a zip file with dist/ directory and binary awesome-api
+	@make build
 	@zip -r awesome-website.zip dist awesome-api
 
 lint: ## Lint the files README.md and DEPLOY.md with markdownlint command line
-	@markdownlint README.md DEPLOY.md
+	@markdownlint README.md
+	@markdownlint DEPLOY.md
+
+integration-tests: ## Integration tests
+	@make help
+	@make lint
+	@make build
+	@make POST_NAME=test-post POST_TITLE="Test Post" post
+	@make package
+	@make clean
