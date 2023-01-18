@@ -25,3 +25,10 @@ package: ## Create a zip file with dist/ directory
 lint: ## Lint the files README.md and DEPLOY.md with markdownlint command line
 	@markdownlint README.md
 	@markdownlint DEPLOY.md
+
+unit-tests: ## Unit tests for make targets
+	@make help
+	@make lint
+	@make POST_TITLE='IS A TEST' POST_NAME='is-a-test' post
+	@make build
+	@make clean
