@@ -2,7 +2,8 @@
 
 ## What is in the archive and how to unarchive it?
 
-It's a compress file that contains the hugo page directory `dist/` and the `awesome-api` binary file.
+It's a compress file that contains the hugo page directory `dist/`
+and the `awesome-api` binary file.
 
 The file is unarchived running this command:
 
