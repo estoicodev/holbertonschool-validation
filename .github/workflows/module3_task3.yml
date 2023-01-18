@@ -1,0 +1,49 @@
+name: module3_task3
+on:
+  push:
+    branches:
+      - main
+      - master
+    schedule:
+      - cron: "0 23 * * *"
+jobs:
+  All-Validation-Code:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Checkout tools
+        run: make --version >/dev/null 2>&1 && echo OK
+        working-directory: module3_task3
+      - name: Setup tools
+        run: sudo ./setup.sh
+        working-directory: module3_task3
+      - name: Check target lint in makefile
+        run: make lint
+        working-directory: module3_task3
+      - name: Check target build in makefile
+        run: make build
+        working-directory: module3_task3
+      - name: Check target post in makefile
+        run: make POST_NAME=test-post POST_TITLE="Test Post" post
+        working-directory: module3_task3
+      - name: Check Integration tests
+        run: |
+          make validate
+          make integration-tests
+          make unit-tests
+          make package
+        working-directory: module3_task3
+      - name: Upload zip file
+        if: ${{ success()}}
+        uses: actions/upload-artifact@v3
+        with:
+          name: upload-package
+          path: module3_task3/awesome-website.zip
+          if-no-files-found: error
+      - name: 1.0.0
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/1.0.0')
+        with:
+          body_path: module3_task3/DEPLOY.md
+          files: awesome-website.zip
