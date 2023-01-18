@@ -18,9 +18,9 @@ post: ## Create a new post in Markdown to content/posts using POST_NAME and POST
 help: ## Show help option to more details of each rule
 	@cat Makefile | grep "^\w*:.*##.*" | sed 's/## //'
 
-package: ## Create a zip file with dist/ directory and binary awesome-api
+package: ## Create a zip file with dist/ directory
 	@make build
-	@zip -r awesome-website.zip dist awesome-api
+	@zip -r awesome-website.zip dist/
 
 lint: ## Lint the files README.md and DEPLOY.md with markdownlint command line
 	@markdownlint README.md
@@ -30,5 +30,5 @@ integration-tests: ## Integration tests
 	@make help
 	@make lint
 	@make build
-	@make package
 	@make clean
+	@make package
