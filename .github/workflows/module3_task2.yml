@@ -28,6 +28,7 @@ jobs:
         working-directory: module3_task2
       - name: Check Integration tests
         run: |
+          make validate
           make integration-tests
           make unit-tests
           make package

@@ -26,6 +26,9 @@ lint: ## Lint the files README.md and DEPLOY.md with markdownlint command line
 	@markdownlint README.md
 	@markdownlint DEPLOY.md
 
+validate: ## check current directory
+	@pwd
+
 integration-tests: ## Integration tests
 	@hugo
 	ls dist/
