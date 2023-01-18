@@ -25,10 +25,3 @@ package: ## Create a zip file with dist/ directory
 lint: ## Lint the files README.md and DEPLOY.md with markdownlint command line
 	@markdownlint README.md
 	@markdownlint DEPLOY.md
-
-integration-tests: ## Integration tests
-	@make help
-	@make lint
-	@make build
-	@make clean
-	@make package

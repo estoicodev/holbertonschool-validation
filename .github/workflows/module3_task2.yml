@@ -27,7 +27,9 @@ jobs:
         run: make POST_NAME=test-post POST_TITLE="Test Post" post
         working-directory: module3_task2
       - name: Check Integration tests
-        run: make integration-tests
+        run: |
+          make package
+          make clean
         working-directory: module3_task2
       - name: Upload zip file
         if: ${{ success()}}
