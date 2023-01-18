@@ -20,3 +20,6 @@ help: ## Show help option to more details of each rule
 
 package: ## Create a zip file with dist/ directory and binary awesome-api
 	@zip -r awesome-website.zip dist awesome-api
+
+lint: ## Lint the files README.md and DEPLOY.md with markdownlint command line
+	@markdownlint README.md DEPLOY.md
