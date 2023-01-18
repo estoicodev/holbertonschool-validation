@@ -4,8 +4,8 @@ on:
     branches:
       - main
       - master
-    schedule:
-      - cron: "0 23 * * *"
+  schedule:
+    - cron: "0 23 * * *"
 jobs:
   All-Validation-Code:
     runs-on: ubuntu-18.04
