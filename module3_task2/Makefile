@@ -26,6 +26,10 @@ lint: ## Lint the files README.md and DEPLOY.md with markdownlint command line
 	@markdownlint README.md
 	@markdownlint DEPLOY.md
 
+integration-tests: ## Integration tests
+	@hugo
+	ls dist/
+
 unit-tests: ## Unit tests for make targets
 	@make help
 	@make lint
