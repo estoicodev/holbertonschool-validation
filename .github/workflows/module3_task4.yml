@@ -7,7 +7,7 @@ on:
   schedule:
     - cron: "0 23 * * *"
   pull_request:
-    types: [open, edit, reopened, ready_for_review]
+    types: [opened, edited, reopened, ready_for_review]
 jobs:
   All-Validation-Code:
     runs-on: ubuntu-18.04
