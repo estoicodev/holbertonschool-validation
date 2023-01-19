@@ -38,6 +38,7 @@ jobs:
         working-directory: module3_task5
       - name: Release
         uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           tag_name: 1.0.1
           files: |
