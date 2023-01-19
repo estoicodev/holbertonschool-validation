@@ -1,0 +1,9 @@
+title = "Awesome Inc."
+baseURL = "https://example.org"
+languageCode = "en-us"
+theme = "ananke"
+publishDir = './dist'
+
+[[params.ananke_socials]]
+name = "twitter"
+url = "https://twitter.com/mauricodev"
