@@ -23,7 +23,7 @@
 
   ```
 
-- build: Create the Hugo website using Hugo
+- build: Create the Hugo website using Hugo.
 
   Usage:
 
@@ -33,7 +33,7 @@
 
   ```
 
-- clean: Remove the directory of the result code of Hugo website
+- clean: Remove the directory of the result code of Hugo website.
 
   Usage:
 
@@ -43,7 +43,7 @@
 
   ```
 
-- help: Show more details of each rule
+- help: Show more details of each rule.
 
   Usage:
 
@@ -53,7 +53,7 @@
 
   ```
 
-- package: Create zip file with hugo application
+- package: Create zip file with hugo application.
 
   Usage:
 
