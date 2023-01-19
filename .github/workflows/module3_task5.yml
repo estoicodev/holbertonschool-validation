@@ -55,7 +55,7 @@ jobs:
         run: make build
         working-directory: module3_task5
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v1.2git
+        uses: nwtgck/actions-netlify@v1.2
         with:
           publish-dir: "module3_task5/dist"
           production-branch: master
