@@ -71,4 +71,3 @@
 - `module3_task3`: Add git tag trigger that uploads zip file and DEPLOY.md
   in a Github release with a tag `1.0.0`.
 - `module3_task4`: Create a release-drafter to automate each Github release.
-  Use a tag `1.0.1` in this workflow.
