@@ -1,0 +1,67 @@
+name: module4_task0
+on:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    - cron: "0 23 * * *"
+  pull_request:
+    types: [opened, edited, reopened, ready_for_review]
+jobs:
+  All-Validation-Code:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Clone the repository
+        uses: actions/checkout@v3
+      - name: Checkout tools
+        run: make --version >/dev/null 2>&1 && echo OK
+        working-directory: module4_task0
+      - name: Setup tools
+        run: sudo ./setup.sh
+        working-directory: module4_task0
+      - name: Check linter for markdown files
+        run: make lint
+        working-directory: module4_task0
+      - name: Build Hugo website
+        run: make build
+        working-directory: module4_task0
+      - name: Create zip file with Hugo website
+        run: make package
+        working-directory: module4_task0
+      - name: Run Additional rules
+        run: |
+          make integration-tests
+          make unit-tests
+          make validate
+        working-directory: module4_task0
+      - name: Github release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          # tag_name: 1.0.1
+          # body_path: module3_task3/DEPLOY.md
+          files: |
+            module4_task0/awesome-website.zip
+            module4_task0/DEPLOY.md
+      - name: Upload hugo website in zip file
+        if: ${{ success()}}
+        uses: actions/upload-artifact@v3
+        with:
+          name: upload-package
+          path: module4_task0/awesome-website.zip
+          if-no-files-found: error
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: "module4_task0/dist"
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: true
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
