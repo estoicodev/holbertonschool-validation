@@ -27,7 +27,8 @@ jobs:
         docker run --rm -v $(pwd):/app awesome:build make clean
         docker run --rm -v $(pwd):/app awesome:build make lint
         docker run --rm -v $(pwd):/app awesome:build make build
-        docker run --rm -v $(pwd):/app awesome:build make test
+        docker run --rm -v $(pwd):/app awesome:build make unit-tests
+        docker run --rm -v $(pwd):/app awesome:build make integration-tests
         docker run --rm -v $(pwd):/app awesome:build make package
         ls -la
         docker image ls | grep awesome
@@ -38,12 +39,3 @@ jobs:
           name: upload-package
           path: module4_task1/awesome-website.zip
           if-no-files-found: error
-      - name: Github release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          # tag_name: 1.0.1
-          # body_path: module4_task1/DEPLOY.md
-          files: |
-            module4_task1/awesome-website.zip
-            module4_task1/DEPLOY.md
