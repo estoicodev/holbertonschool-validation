@@ -23,15 +23,15 @@ jobs:
       - name: Create Docker and execute make targets
         working-directory: module4_task1
         run: |
-        make build-docker
-        docker run --rm -v $(pwd):/app awesome:build make clean
-        docker run --rm -v $(pwd):/app awesome:build make lint
-        docker run --rm -v $(pwd):/app awesome:build make build
-        docker run --rm -v $(pwd):/app awesome:build make unit-tests
-        docker run --rm -v $(pwd):/app awesome:build make integration-tests
-        docker run --rm -v $(pwd):/app awesome:build make package
-        ls -la
-        docker image ls | grep awesome
+          make build-docker
+          docker run --rm -v $(pwd):/app awesome:build make clean
+          docker run --rm -v $(pwd):/app awesome:build make lint
+          docker run --rm -v $(pwd):/app awesome:build make build
+          docker run --rm -v $(pwd):/app awesome:build make unit-tests
+          docker run --rm -v $(pwd):/app awesome:build make integration-tests
+          docker run --rm -v $(pwd):/app awesome:build make package
+          ls -la
+          docker image ls | grep awesome
       - name: Upload hugo website in zip file
         if: ${{ success()}}
         uses: actions/upload-artifact@v3
