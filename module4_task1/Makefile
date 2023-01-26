@@ -4,6 +4,10 @@
 DIST_DIR = dist
 
 build: ## Create the Hugo website using Hugo
+	@apt-get install curl -y
+	@curl -L https://github.com/gohugoio/hugo/releases/download/v0.109.0/hugo_extended_0.109.0_linux-amd64.deb -o hugo.deb
+	@apt-get install ./hugo.deb
+	@rm ./hugo.deb
 	@hugo
 	@touch awesome-api
 
@@ -13,6 +17,7 @@ clean: ## Remove the directory of the result code of Hugo website
 
 NEW_LINE = title: \"$(POST_TITLE)\"
 post: ## Create a new post in Markdown to content/posts using POST_NAME and POST_TITLE environment variables for filename and title respectively
+	@rm -rf content/posts/$(POST_NAME).md
 	@hugo new posts/$(POST_NAME).md
 	@sed -i '1,2d' content/posts/$(POST_NAME).md
 	@sed -i '1i ---' content/posts/$(POST_NAME).md
@@ -23,6 +28,10 @@ package: ## Create a zip file with dist/ directory
 	@zip -r awesome-website.zip dist/
 
 lint: ## Lint the files README.md and DEPLOY.md with markdownlint command line
+	@apt-get install curl -y
+	@curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+	@apt-get install -y nodejs
+	@npm install -g markdownlint-cli -y || true
 	@markdownlint README.md
 	@markdownlint DEPLOY.md
 
