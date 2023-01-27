@@ -39,12 +39,12 @@ lint: ## Lint the README.md and DEPLOY.md files and lint Dockerfile
 	@apt-get install -y nodejs
 	@npm install -g markdownlint-cli -y || true
 	@markdownlint README.md DEPLOY.md && echo OK
+# @wget -O /usr/local/bin/hadolint -q -nv https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
+# @chmod +x /usr/local/bin/hadolint
 	@curl https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64 -o hadolint
 	@mv hadolint /usr/local/bin/
 	@chmod +x /usr/local/bin/hadolint
-# @wget -O /usr/local/bin/hadolint -q -nv https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
-# @chmod +x /usr/local/bin/hadolint
-# @hadolint build/Dockerfile && echo OK
+	@hadolint build/Dockerfile && echo OK
 
 unit-tests: ## Unit tests coverage
 	@touch coverage-units.out
@@ -63,8 +63,11 @@ test: ## Execute Tests
 	@make integration-tests
 
 docker-tests: ## Test of Docker with container-structure-test command
-# @sudo wget -O /usr/local/bin/container-structure-test -q -nv https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64
-# @sudo chmod +x /usr/local/bin/container-structure-test
+#@wget -O /usr/local/bin/container-structure-test -q -nv https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64
+#@chmod +x /usr/local/bin/container-structure-test
+	@curl https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64 -o container-structure-test
+	@mv container-structure-test /usr/local/bin/
+	@chmod +x /usr/local/bin/container-structure-test
 	@container-structure-test test --image awesome:build --config ./build/cst.yml
 
 validate: ## Validate project
