@@ -58,8 +58,8 @@ build-docker: ## Create a new Docker image named awesome:build
 	@docker build -t awesome:build -f build/Dockerfile .
 
 docker-build: ## Create a new Docker image named awesome:build passed lint
-	@wget -O /usr/local/bin/hadolint -q -nv https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
-	@chmod +x /usr/local/bin/hadolint
+	@sudo wget -O /usr/local/bin/hadolint -q -nv https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
+	@sudo chmod +x /usr/local/bin/hadolint
 	@hadolint build/Dockerfile && docker build -t awesome:build -f build/Dockerfile .
 
 run-docker: ## Run docker with correct Makefile
