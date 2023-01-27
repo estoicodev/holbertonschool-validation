@@ -31,9 +31,7 @@ jobs:
         run: make docker-tests
       - name: Prepare Makefile for Docker
         working-directory: module4_task2
-        run: |
-        make makefile-docker
-        rm MakefileDocker MakefileLocal
+        run: make makefile-docker rm MakefileDocker MakefileLocal
       - name: Execute Docker commands
         working-directory: module4_task2
         run: |
