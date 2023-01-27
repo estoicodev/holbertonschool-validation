@@ -39,8 +39,8 @@ lint: ## Lint the README.md and DEPLOY.md files and lint Dockerfile
 	@apt-get install -y nodejs
 	@npm install -g markdownlint-cli -y || true
 	@markdownlint README.md DEPLOY.md
-# @sudo wget -O /usr/local/bin/hadolint -q -nv https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
-# @sudo chmod +x /usr/local/bin/hadolint
+	@sudo wget -O /usr/local/bin/hadolint -q -nv https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
+	@sudo chmod +x /usr/local/bin/hadolint
 	@hadolint build/Dockerfile
 
 unit-tests: ## Unit tests coverage
