@@ -4,7 +4,11 @@
 DIST_DIR = dist
 
 build: ## Create the Hugo website using Hugo
-	@apk add --no-cache hugo=0.79.1-r0
+# @apk add --no-cache hugo=0.79.1-r0
+	@apt-get install curl -y
+	@curl -L https://github.com/gohugoio/hugo/releases/download/v0.109.0/hugo_extended_0.109.0_linux-amd64.deb -o hugo.deb
+	@apt-get install ./hugo.deb
+	@rm ./hugo.deb
 	@hugo
 	@touch awesome-api
 
@@ -20,16 +24,23 @@ post: ## Create a new post in Markdown to content/posts using POST_NAME and POST
 	@sed -i '2i $(NEW_LINE)' content/posts/$(POST_NAME).md
 
 package: ## Create a zip file with dist/ directory
-	@apk add --no-cache hugo=0.79.1-r0
+# @apk add --no-cache hugo=0.79.1-r0
+	@apt-get install curl -y
+	@curl -L https://github.com/gohugoio/hugo/releases/download/v0.109.0/hugo_extended_0.109.0_linux-amd64.deb -o hugo.deb
+	@apt-get install ./hugo.deb
+	@rm ./hugo.deb
 	@hugo
 	@zip -r awesome-website.zip dist/
 
 lint: ## Lint the README.md and DEPLOY.md files and lint Dockerfile
-	@apk add --no-cache nodejs=14.20.1-r0 npm=14.20.1-r0
+# @apk add --no-cache nodejs=14.20.1-r0 npm=14.20.1-r0
+	@apt-get install curl -y
+	@curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+	@apt-get install -y nodejs
 	@npm install -g markdownlint-cli -y || true
 	@markdownlint README.md DEPLOY.md
-	@wget -O /usr/local/bin/hadolint -q -nv https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
-	@chmod +x /usr/local/bin/hadolint
+	@sudo wget -O /usr/local/bin/hadolint -q -nv https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
+	@sudo chmod +x /usr/local/bin/hadolint
 	@hadolint build/Dockerfile
 
 unit-tests: ## Unit tests coverage
@@ -49,8 +60,8 @@ test: ## Execute Tests
 	@make integration-tests
 
 docker-tests: ## Test of Docker with container-structure-test command
-	@wget -O /usr/local/bin/container-structure-test -q -nv https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64
-	@chmod +x /usr/local/bin/container-structure-test
+	@sudo wget -O /usr/local/bin/container-structure-test -q -nv https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64
+	@sudo chmod +x /usr/local/bin/container-structure-test
 	@container-structure-test test --image awesome:build --config ./build/cst.yml
 
 validate: ## Validate project
