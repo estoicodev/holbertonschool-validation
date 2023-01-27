@@ -25,13 +25,14 @@ jobs:
         run: hadolint build/Dockerfile
       - name: Build Docker
         working-directory: module4_task2
-        run: make build-docker
+        run: make docker-build
       - name: Docker tests
         working-directory: module4_task2
         run: make docker-tests
       - name: Execute Docker commands
         working-directory: module4_task2
         run: |
+          cat MakefileDocker > Makefile && rm MakefileDocker
           docker run --rm -v $(pwd):/app awesome:build make clean
           docker run --rm -v $(pwd):/app awesome:build make lint
           docker run --rm -v $(pwd):/app awesome:build make build
