@@ -5,10 +5,10 @@ DIST_DIR = dist
 
 build: ## Create the Hugo website using Hugo
 # @apk add --no-cache hugo=0.79.1-r0
-	@apt-get install curl -y
-	@curl -L https://github.com/gohugoio/hugo/releases/download/v0.109.0/hugo_extended_0.109.0_linux-amd64.deb -o hugo.deb
-	@apt-get install ./hugo.deb
-	@rm ./hugo.deb
+	@apt-get install curl -y &&\
+	curl -L https://github.com/gohugoio/hugo/releases/download/v0.109.0/hugo_extended_0.109.0_linux-amd64.deb -o hugo.deb &&\
+	apt-get install ./hugo.deb &&\
+	rm ./hugo.deb || apk add --no-cache hugo=0.79.1-r0
 	@hugo
 	@touch awesome-api
 
@@ -25,20 +25,20 @@ post: ## Create a new post in Markdown to content/posts using POST_NAME and POST
 
 package: ## Create a zip file with dist/ directory
 # @apk add --no-cache hugo=0.79.1-r0
-	@apt-get install curl -y
-	@curl -L https://github.com/gohugoio/hugo/releases/download/v0.109.0/hugo_extended_0.109.0_linux-amd64.deb -o hugo.deb
-	@apt-get install ./hugo.deb
-	@rm ./hugo.deb
+	@apt-get install curl -y &&\
+	curl -L https://github.com/gohugoio/hugo/releases/download/v0.109.0/hugo_extended_0.109.0_linux-amd64.deb -o hugo.deb &&\
+	apt-get install ./hugo.deb &&\
+	rm ./hugo.deb || apk add --no-cache hugo=0.79.1-r0
 	@hugo
 	@zip -r awesome-website.zip dist/
 
 lint: ## Lint the README.md and DEPLOY.md files and lint Dockerfile
 # @apk add --no-cache nodejs=14.20.1-r0 npm=14.20.1-r0
-	@apt-get install curl -y
-	@curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-	@apt-get install -y nodejs
-	@npm install -g markdownlint-cli -y || true
-	@markdownlint README.md DEPLOY.md && echo OK
+	@apt-get install curl -y &&\
+	curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&\
+	apt-get install -y nodejs || apk add --no-cache nodejs=14.20.1-r0 npm=14.20.1-r0
+	@npm install -g markdownlint-cli -y
+	@markdownlint README.md DEPLOY.md
 # @wget -O /usr/local/bin/hadolint -q -nv https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
 # @chmod +x /usr/local/bin/hadolint
 	@curl https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64 -o hadolint
