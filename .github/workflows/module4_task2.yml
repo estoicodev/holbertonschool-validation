@@ -29,10 +29,14 @@ jobs:
       - name: Docker tests
         working-directory: module4_task2
         run: make docker-tests
+      - name: Prepare Makefile for Docker
+        working-directory: module4_task2
+        run: |
+        make makefile-docker
+        rm MakefileDocker MakefileLocal
       - name: Execute Docker commands
         working-directory: module4_task2
         run: |
-          cat MakefileDocker > Makefile && rm MakefileDocker
           docker run --rm -v $(pwd):/app awesome:build make clean
           docker run --rm -v $(pwd):/app awesome:build make lint
           docker run --rm -v $(pwd):/app awesome:build make build

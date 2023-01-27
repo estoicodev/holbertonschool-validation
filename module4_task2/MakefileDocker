@@ -1,13 +1,10 @@
+# Makefile Docker
 .PHONY: build
 
 # Destiny directory
 DIST_DIR = dist
 
 build: ## Create the Hugo website using Hugo
-# @apt-get install curl -y &&\
-	curl -L https://github.com/gohugoio/hugo/releases/download/v0.109.0/hugo_extended_0.109.0_linux-amd64.deb -o hugo.deb &&\
-	apt-get install ./hugo.deb &&\
-	rm ./hugo.deb || apk add --no-cache hugo=0.79.1-r0
 	@apk add --no-cache hugo=0.79.1-r0
 	@hugo
 	@touch awesome-api
@@ -24,30 +21,17 @@ post: ## Create a new post in Markdown to content/posts using POST_NAME and POST
 	@sed -i '2i $(NEW_LINE)' content/posts/$(POST_NAME).md
 
 package: ## Create a zip file with dist/ directory
-# @apt-get install curl -y &&\
-# curl -L https://github.com/gohugoio/hugo/releases/download/v0.109.0/hugo_extended_0.109.0_linux-amd64.deb -o hugo.deb &&\
-# apt-get install ./hugo.deb &&\
-# rm ./hugo.deb || apk add --no-cache hugo=0.79.1-r0
 	@apk add --no-cache hugo=0.79.1-r0
 	@hugo
 	@zip -r awesome-website.zip dist/
 
 lint: ## Lint the README.md and DEPLOY.md files and lint Dockerfile
-# @apk add --no-cache nodejs=14.20.1-r0 npm=14.20.1-r0 || apt-get install curl -y &&\
-# curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&\
-# apt-get install -y nodejs
-# @apt-get install curl -y &&\
-# curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&\
-# apt-get install -y nodejs || apk add --no-cache nodejs=14.20.1-r0 npm=14.20.1-r0
 	@apk add --no-cache nodejs=14.20.1-r0 npm=14.20.1-r0
 	@npm install -g markdownlint-cli -y
 	@markdownlint README.md DEPLOY.md
 	@wget -O /usr/local/bin/hadolint -q -nv https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
 	@chmod +x /usr/local/bin/hadolint
 	@hadolint build/Dockerfile && echo OK
-# @curl https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64 -o hadolint
-# @mv hadolint /usr/local/bin/
-# @chmod +x /usr/local/bin/hadolint
 
 unit-tests: ## Unit tests coverage
 	@touch coverage-units.out
@@ -59,8 +43,8 @@ build-docker: ## Create a new Docker image named awesome:build
 	@docker build -t awesome:build -f build/Dockerfile .
 
 docker-build: ## Create a new Docker image named awesome:build passed lint
-	@sudo wget -O /usr/local/bin/hadolint -q -nv https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
-	@sudo chmod +x /usr/local/bin/hadolint
+	@wget -O /usr/local/bin/hadolint -q -nv https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
+	@chmod +x /usr/local/bin/hadolint
 	@hadolint build/Dockerfile && docker build -t awesome:build -f build/Dockerfile .
 
 test: ## Execute Tests
@@ -68,12 +52,20 @@ test: ## Execute Tests
 	@make integration-tests
 
 docker-tests: ## Test of Docker with container-structure-test command
-#@wget -O /usr/local/bin/container-structure-test -q -nv https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64
-#@chmod +x /usr/local/bin/container-structure-test
-	@curl https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64 -o container-structure-test
-	@mv container-structure-test /usr/local/bin/
+	@wget -O /usr/local/bin/container-structure-test -q -nv https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64
 	@chmod +x /usr/local/bin/container-structure-test
 	@container-structure-test test --image awesome:build --config ./build/cst.yml
+
+makefile-docker: ## Prepare correct Makefile for Docker
+	@cat Makefile > MakefileLocal
+	@cat MakefileDocker > Makefile
+
+makefile-local: ## Prepare correct Makefile for local
+	@cat Makefile > MakefileDocker
+	@cat MakefileLocal > Makefile
+
+run-docker: ## Run docker
+	docker run -it --name alpine-go -v $(pwd):/app awesome:build /bin/sh
 
 validate: ## Validate project
 
