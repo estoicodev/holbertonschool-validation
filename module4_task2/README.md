@@ -103,6 +103,16 @@
 
   ```
 
+- docker-build: Creates a docker container with all the tools and passed lint
+
+  Usage:
+
+  ```shell
+
+  make docker-build
+
+  ```
+
 - docker-tests: Test docker container
 
   Usage:

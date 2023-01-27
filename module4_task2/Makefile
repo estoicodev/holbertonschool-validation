@@ -58,4 +58,4 @@ validate: ## Validate project
 help: ## Show usage of each make target
 	@echo "Usage: make <command>"
 	@echo "------"
-	@cat Makefile | grep "^\w*:.*##.*" | sed 's/## //'
+	@fgrep -h "##" Makefile | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
