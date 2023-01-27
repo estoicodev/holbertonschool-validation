@@ -35,7 +35,8 @@ package: ## Create a zip file with dist/ directory
 lint: ## Lint the README.md and DEPLOY.md files and lint Dockerfile
 # @apk add --no-cache nodejs=14.20.1-r0 npm=14.20.1-r0
 # @apt-get install curl -y
-	@curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+	@curl --silent --location -fsSL https://deb.nodesource.com/setup_16.x | bash -
+	@apt-get update
 	@apt-get install -y nodejs
 	@npm install -g markdownlint-cli -y || true
 	@markdownlint README.md DEPLOY.md && echo OK
