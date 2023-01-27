@@ -35,9 +35,9 @@ package: ## Create a zip file with dist/ directory
 lint: ## Lint the README.md and DEPLOY.md files and lint Dockerfile
 # @apk add --no-cache nodejs=14.20.1-r0 npm=14.20.1-r0
 # @apt-get install curl -y
-# @curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-# @apt-get install -y nodejs
-# @npm install -g markdownlint-cli -y || true
+	@curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+	@apt-get install -y nodejs
+	@npm install -g markdownlint-cli -y || true
 	@markdownlint README.md DEPLOY.md
 # @sudo wget -O /usr/local/bin/hadolint -q -nv https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
 # @sudo chmod +x /usr/local/bin/hadolint
