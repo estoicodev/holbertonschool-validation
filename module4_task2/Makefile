@@ -31,10 +31,10 @@ package: ## Create a zip file with dist/ directory
 	@zip -r awesome-website.zip dist/
 
 lint: ## Lint the README.md and DEPLOY.md files and lint Dockerfile
-# @apt-get install curl -y
-# @curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-# @apt-get install -y nodejs
-# @npm install -g markdownlint-cli -y || true
+	@apt-get install curl -y
+	@curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+	@apt-get install -y nodejs
+	@npm install -g markdownlint-cli -y || true
 	@markdownlint README.md DEPLOY.md
 	@curl https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64 -o hadolint
 	@mv hadolint /usr/local/bin/
@@ -51,9 +51,9 @@ build-docker: ## Create a new Docker image named awesome:build
 	@docker build -t awesome:build -f build/Dockerfile .
 
 docker-build: ## Create a new Docker image named awesome:build passed lint
-	@curl https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64 -o hadolint
-	@mv hadolint /usr/local/bin/
-	@chmod +x /usr/local/bin/hadolint
+# @curl https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64 -o hadolint
+# @mv hadolint /usr/local/bin/
+# @chmod +x /usr/local/bin/hadolint
 	@hadolint build/Dockerfile && docker build -t awesome:build -f build/Dockerfile .
 
 run-docker: ## Run docker with correct Makefile
