@@ -1,0 +1,22 @@
+---
+schemaVersion: "2.0.0"
+commandTests:
+  - name: "test dist/"
+    command: "test"
+    args: ["-f dist/index.html && echo OK"]
+    expectedOutput: ["OK"]
+fileExistenceTests:
+  - name: "Root"
+    path: "/"
+    shouldExist: true
+    uid: 0
+    gid: 0
+  - name: "App"
+    path: "/app"
+    shouldExist: true
+    uid: 0
+    gid: 0
+metadataTest:
+  entrypoint: []
+  cmd: ["/bin/sh"]
+  workdir: "/app"

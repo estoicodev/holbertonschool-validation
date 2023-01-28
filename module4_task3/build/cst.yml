@@ -1,0 +1,18 @@
+---
+schemaVersion: "2.0.0"
+commandTests:
+  - name: "which"
+    command: "which"
+    args: ["go"]
+    # excludedError: [".*FAIL.*"]
+    expectedOutput: [".*/local/go.*"]
+fileExistenceTests:
+  - name: "Root"
+    path: "/"
+    shouldExist: true
+    uid: 0
+    gid: 0
+metadataTest:
+  entrypoint: []
+  cmd: ["/bin/sh"]
+  workdir: "/app"

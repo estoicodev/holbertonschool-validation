@@ -1,0 +1,50 @@
+name: module4_task3
+on:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    - cron: "0 23 * * *"
+  pull_request:
+    types: [opened, edited, reopened, ready_for_review]
+jobs:
+  All-Validation-Code:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Clone the repository
+        uses: actions/checkout@v3
+      - name: Checkout tools
+        run: make --version >/dev/null 2>&1 && echo OK
+        working-directory: module4_task3
+      - name: Setup tools
+        run: sudo ./setup.sh
+        working-directory: module4_task3
+      - name: Lint Dockerfile before build image
+        working-directory: module4_task3
+        run: hadolint build/Dockerfile ./Dockerfile && echo OK
+      - name: Build awesome-build
+        working-directory: module4_task3
+        run: make docker-build
+      - name: Docker tests
+        working-directory: module4_task3
+        run: make docker-tests
+      - name: Docker package
+        working-directory: module4_task3
+        run: make package
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      - name: Execute Docker app
+        working-directory: module4_task3
+        run: |
+          docker run awesome:${{ steps.get_version.outputs.VERSION }}
+          ls -la
+          docker images
+      - name: Upload hugo website in zip file
+        if: ${{ success()}}
+        uses: actions/upload-artifact@v3
+        with:
+          name: upload-package
+          path: module4_task3/docker.zip
+          if-no-files-found: error
